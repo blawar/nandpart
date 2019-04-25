@@ -103,10 +103,6 @@ class File:
 		
 		self.f.seek(alignedOffset)
 		
-		#print(alignedBytes)
-		#raise IOError('hmm')
-		#Print.info('writing to ' + hex(self.f.tell()) + ' ' + self.f.__class__.__name__)
-		#Hex.dump(value)
 		return self.f.write(alignedBytes)
 
 	def writeInt8(self, value, byteorder='little', signed = False):
@@ -311,42 +307,6 @@ class MBR(File):
 		for p in self.partitions:
 			p.print()
 		
-		
-def resize():
-	with open(sys.argv[1], 'rb+') as f:
-		mbr = MBR(f, 0, LBAOffset(1))
-		gpt = mbr.gpt()
-		gpt.print()
-		#mbr.gpt().partitions[13].print()
-		#mbr.print()
-		#mbr.seek(LBAOffset(SECTOR_COUNT_32GB-1))
-		#print(mbr.read(512, LBAOffset(SECTOR_COUNT_256GB-1) - 0x400))
-		#print(mbr.read(0x512, LBAOffset(2)))
-		#print(mbr.read(0x512, LBAOffset(SECTOR_COUNT_256GB-33)))
-	
-		#print(mbr.read(512, LBAOffset(1)))
-		#print(mbr.read(512, LBAOffset(SECTOR_COUNT_256GB-1)))
-	
-		'''
-		gptData = mbr.read(512, LBAOffset(1))
-		partitionData = mbr.read(0x4000, LBAOffset(2))
-	
-
-		mbr.write(gptData,  LBAOffset(SECTOR_COUNT_256GB-1))
-		mbr.write(partitionData,  LBAOffset(SECTOR_COUNT_256GB-33))
-	
-		gpt.partitions[13].setLastLba(SECTOR_COUNT_256GB - SECTOR_END_PADDING)
-	
-		gpt.setPartitionEntriesCrc()
-		gpt.setCrc()
-		'''
-
-	
-		#with open('E:\\RAWNAND.bin', 'rb') as f2:
-		#	mbr.seek(0)
-		#	mbr.write(f2.read(0x800000))
-	
-		#mbr.flush()
 
 def fileSize(path):
 	if os.path.isfile(path):
@@ -409,21 +369,6 @@ class Header:
 
 		self.layout.addWidget(self.src)
 
-		'''
-		self.destLabel = QLabel("Destination: ")
-		self.destLabel.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-		self.layout.addWidget(self.destLabel)
-
-		self.dest = QComboBox()
-		for f in self.files:
-			self.dest.addItem(str(f))
-
-		self.dest.currentIndexChanged.connect(self.onDestChange)
-
-		self.layout.addWidget(self.dest)
-		'''
-
-
 		self.copy = QPushButton('Resize', app)
 		self.copy.clicked.connect(self.onCopy)
 		self.layout.addWidget(self.copy)
@@ -459,12 +404,6 @@ class Header:
 		if not self.srcSelected:
 			QMessageBox.question(self.app, 'ERROR', "Please select a source.", QMessageBox.Ok, QMessageBox.Ok)
 			return
-
-		'''
-		if not self.destSelected:
-			QMessageBox.question(self.app, 'ERROR', "Please select a destination.", QMessageBox.Ok, QMessageBox.Ok)
-			return
-		'''
 
 		if self.app.freeSpace < 1024 * 1024 * 1024:
 			QMessageBox.question(self.app, 'ERROR', "Not enough free space to increase partition size", QMessageBox.Ok, QMessageBox.Ok)

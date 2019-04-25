@@ -16,7 +16,7 @@ pip3 install pyqt5 wmi zlib
 
 4. Reboot your switch and launch the memloader RCM payload (leave USB cable connected).
 
-5. Use NXNAndManager (https://github.com/eliboa/NxNandManager) to take a full nand backup to your PC.
+5. Use NxNandManager (https://github.com/eliboa/NxNandManager) to take a full nand backup to your PC.
 
 6. Turn off your switch, disassemble it, and install the new upgraded NAND.
 
