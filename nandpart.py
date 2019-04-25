@@ -425,12 +425,15 @@ class Header:
 		file.write(gptData, file.size - LBAOffset(1))
 		file.write(partitionData, file.size - LBAOffset(33))
 	
-		gpt.partitions[10].setLastLba((file.size / 512) - SECTOR_END_PADDING)
+		gpt.partitions[10].setLastLba(int(file.size / 512) - SECTOR_END_PADDING)
 	
 		gpt.setPartitionEntriesCrc()
 		gpt.setCrc()
 
 		file.close()
+
+		QMessageBox.question(self.app, 'SUCCESS', "Complete!", QMessageBox.Ok, QMessageBox.Ok)
+		self.app.refreshTable()
 
 	def onCheck(self, state):
 		if state == Qt.Checked:
@@ -547,6 +550,10 @@ class App(QWidget):
 		return self.tableWidget
 
 	def refreshTable(self):
+		if not self.header.srcSelected:
+			self.tableWidget.setRowCount(0)
+			return
+
 		file = self.header.srcFile()
 		file.open('rb')
 		mbr = self.header.srcFile().mbr
