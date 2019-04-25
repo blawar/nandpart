@@ -1,7 +1,5 @@
 # NANDPART
 
-# Introduction
-
 Windows application to resize the Nintendo Switch USER partition when a larger system NAND is installed.
 
 # Installation
