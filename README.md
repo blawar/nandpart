@@ -4,7 +4,7 @@ Windows application to resize the Nintendo Switch USER partition when a larger s
 
 # Installation
 
-pip3 install pyqt5 wmi zlib
+pip3 install pyqt5 wmi
 
 # NAND Upgrade Guide
 
